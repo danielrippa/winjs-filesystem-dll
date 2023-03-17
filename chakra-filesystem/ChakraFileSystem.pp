@@ -12,7 +12,7 @@ interface
 implementation
 
   uses
-    Chakra, ChakraUtils, SysUtils, ChakraTextFile;
+    Chakra, ChakraUtils, SysUtils, ChakraTextFile, ChakraFilePath;
 
   function ChakraFileExists(Args: PJsValue; ArgCount: Word): TJsValue;
   var
@@ -48,6 +48,7 @@ implementation
     SetProperty(Result, 'pathSeparator', StringAsJsString(PathSeparator));
 
     SetProperty(Result, 'textFile', GetChakraTextFile);
+    SetProperty(Result, 'filePath', GetChakraFilePath);
 
     SetFunction(Result, 'fileExists', ChakraFileExists);
     SetFunction(Result, 'getCurrentFolder', ChakraGetCurrentFolder);
