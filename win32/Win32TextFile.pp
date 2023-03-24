@@ -4,13 +4,17 @@ unit Win32TextFile;
 
 interface
 
+  uses
+    SysUtils;
+
   function ReadTextFileContent(FilePath: WideString; out Content: WideString): Boolean;
   function WriteTextFileContent(FilePath, Content: WideString): Boolean;
+  function AppendTextFileLine(FilePath, Line: String): Boolean;
 
 implementation
 
   uses
-    Classes;
+    Classes, Windows;
 
   function ReadTextFileContent;
   var
@@ -57,5 +61,33 @@ implementation
     end;
   end;
 
+  function AppendTextFileLine;
+  const
+    FILE_APPEND_DATA = 4;
+    OPEN_ALWAYS = 4;
+  var
+    Handle: THandle;
+    Stream: THandleStream;
+  begin
+
+    Handle := CreateFile(PChar(FilePath), FILE_APPEND_DATA, 0, Nil, OPEN_ALWAYS, FILE_ATTRIBUTE_NORMAL, 0);
+    if Handle <> INVALID_HANDLE_VALUE then begin
+      try
+
+        Stream := THandleStream.Create(Handle);
+
+        try
+          Line := Line + #13#10;
+          Stream.WriteBuffer(Line[1], Length(Line) * SizeOf(Char));
+        finally
+          Stream.Free;
+        end;
+
+      finally
+        FileClose(Handle);
+      end;
+    end;
+
+  end;
 
 end.
