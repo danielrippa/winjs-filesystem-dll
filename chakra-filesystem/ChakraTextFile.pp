@@ -45,6 +45,18 @@ implementation
     Result := BooleanAsJsBoolean(WriteTextFileContent(FilePath, FileContent));
   end;
 
+  function ChakraTextFileAppendLine(Args: PJsValue; ArgCount: Word): TJsValue;
+  var
+    aFileName, aLine: WideString;
+  begin
+    CheckParams('appendLine', Args, ArgCount, [jsString, jsString], 2);
+
+    aFileName := JsStringAsString(Args^); Inc(Args);
+    aLine := JsStringAsString(Args^);
+
+    Result := BooleanAsJsBoolean(AppendTextFileLine(aFileName, aLine));
+  end;
+
   function GetChakraTextFile;
   begin
 
@@ -52,6 +64,7 @@ implementation
 
     SetFunction(Result, 'read', ChakraReadTextFile);
     SetFunction(Result, 'write', ChakraWriteTextFile);
+    SetFunction(Result, 'appendLine', ChakraTextFileAppendLine);
 
   end;
 
