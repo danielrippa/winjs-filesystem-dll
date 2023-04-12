@@ -23,7 +23,8 @@
       get-file-extension: (filename: string) -> string
       get-relativepath: (folder1: string, folder2: string) -> string
 
-    file-exists: (filename: string) -> boolean
+    file-exists: (file-path: string) -> boolean
+    folder-exists: (folder-path: string) -> boolean
 
     get-current-folder: -> string
     set-current-folder: (folder: string) -> boolean
