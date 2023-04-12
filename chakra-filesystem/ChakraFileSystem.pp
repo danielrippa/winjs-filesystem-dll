@@ -24,6 +24,16 @@ implementation
     Result := BooleanAsJsBoolean(FileExists(FilePath));
   end;
 
+  function ChakraFolderExists(Args: PJsValue; ArgCount: Word): TJsValue;
+  var
+    FilePath: WideString;
+  begin
+    CheckParams('folderExists', Args, ArgCount, [jsString], 1);
+    FilePath := JsstringAsString(Args^);
+
+    Result := BooleanAsJsBoolean(DirectoryExists(FilePath));
+  end;
+
   function ChakraGetCurrentFolder(Args: PJsValue; ArgCount: Word): TJsValue;
   begin
     Result := StringAsJsString(GetCurrentDir);
@@ -51,6 +61,7 @@ implementation
     SetProperty(Result, 'filePath', GetChakraFilePath);
 
     SetFunction(Result, 'fileExists', ChakraFileExists);
+    SetFunction(Result, 'folderExists', ChakraFolderExists);
     SetFunction(Result, 'getCurrentFolder', ChakraGetCurrentFolder);
     SetFunction(Result, 'setCurrentFolder', ChakraSetCurrentFolder);
   end;
