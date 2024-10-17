@@ -12,7 +12,7 @@ interface
 implementation
 
   uses
-    Chakra, ChakraUtils, Win32TextFile, SysUtils;
+    Chakra, ChakraError, Win32TextFile, SysUtils;
 
   function ChakraReadTextFile(Args: PJsValue; ArgCount: Word): TJsValue;
   var

@@ -10,7 +10,7 @@ interface
 
 implementation
 
-  uses Chakra, ChakraUtils, SysUtils, Win32FileSystem;
+  uses Chakra, ChakraError, SysUtils, Win32FileSystem;
 
   function FilePathGetFileName(Args: PJsValue; ArgCount: Word): TJsValue;
   begin

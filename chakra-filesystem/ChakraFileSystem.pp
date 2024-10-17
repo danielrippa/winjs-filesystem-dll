@@ -12,7 +12,7 @@ interface
 implementation
 
   uses
-    Chakra, ChakraUtils, SysUtils, ChakraTextFile, ChakraFilePath;
+    Chakra, ChakraError, SysUtils, ChakraTextFile, ChakraFilePath;
 
   function ChakraFileExists(Args: PJsValue; ArgCount: Word): TJsValue;
   var
